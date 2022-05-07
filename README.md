@@ -18,7 +18,8 @@ About Logistic model,
     Maxiter represents the maximum number of iterations of the model. Generally speaking, the higher the number of iterations, the more accurate the test results are, but an excessively high number of iterations will cause over-fitting problems, which will reduce the accuracy during testing. The number of iterations of this model    is 200, so the value of the maxiter parameter is set to 200.
     
     C is the penalty coefficient in the Logistic model, the reciprocal of the regularization coefficient λ, and the value must be a positive number. The penalty        coefficient is also called the penalty term. The size of C marks the level of the regularization strength of the model, and its value is negatively related to the      regularization strength. Higher regularization strength will make the separation hyperplane more accurate, but it will also bring about overfitting problems.            Therefore, how to choose the penalty coefficient is an important issue in debugging the model. This step will be further explained later.
-Up to the previous step, the logistic model has been initialized.
+
+    Up to the previous step, the logistic model has been initialized.
 
 
     
