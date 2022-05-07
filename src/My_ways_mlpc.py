@@ -8,7 +8,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from sklearn.neural_network import MLPClassifier        # 神经网络模型中的多层网络模型
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 from sklearn.model_selection import validation_curve
 
 import numpy as np
@@ -26,7 +27,8 @@ def pre_data():
     # print(column_name)
 
     #读取csv
-    rd_csv = pd.read_csv("D:/vscode/workspace/learning/new_data.csv", names=column_name)
+    data_path = "./new_data.csv"
+    rd_csv = pd.read_csv(data_path, names=column_name)
     np.isnan(rd_csv).any()
 
     #输出维度
@@ -45,7 +47,7 @@ def pre_data():
     return X_train,X_test,y_train,y_test
 
 
-path_models = "D:/vscode/workspace/learning/LR"
+path_models = "./LR"
 
 # MLPC, Multi-layer Perceptron Classifier, 多层感知机分类（神经网络）
 def model_MLPC():

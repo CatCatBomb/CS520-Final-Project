@@ -10,7 +10,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import LinearSVC                       # SVM 模型中的 SVC 模型
 
 
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 from sklearn.model_selection import validation_curve
 
 import numpy as np
@@ -28,7 +29,8 @@ def pre_data():
     # print(column_name)
 
     #读取csv
-    rd_csv = pd.read_csv("D:/vscode/workspace/learning/new_data.csv", names=column_name)
+    data_path = "./new_data.csv"
+    rd_csv = pd.read_csv(data_path, names=column_name)
     np.isnan(rd_csv).any()
 
     #划分训练集与测试集
@@ -43,7 +45,7 @@ def pre_data():
 
     return X_train,X_test,y_train,y_test
 
-path_models = "D:/vscode/workspace/learning/LR"
+path_models = "./LR"
 # Linear SVC， Linear Supported Vector Classifier, 线性支持向量分类(SVM支持向量机)
 def model_LSVC():
     # get data
@@ -67,18 +69,18 @@ def model_LSVC():
     score_LSVC = LSVC.score(X_test_LSVC, y_test_LSVC)
     print("The accurary of LSVC:", score_LSVC)
 
-    # param_range =[0.1, 0.3, 0.5, 0.7, 1]
-    # train_score, test_score = validation_curve(LinearSVC(penalty='l2',C=param_range), X_train_LSVC, y_train_LSVC,
-    #                                            param_name='C',
-    #                                            param_range=param_range, cv=10, scoring='accuracy')
-    # train_score = np.mean(train_score, axis=1)
-    # test_score = np.mean(test_score, axis=1)
-    # plt.plot(param_range, train_score, 'o-', color='r', label='training')
-    # plt.plot(param_range, test_score, 'o-', color='g', label='testing')
-    # plt.legend(loc='best')
-    # plt.xlabel('C,l2')
-    # plt.ylabel('accuracy')
-    # plt.show()
+    param_range =[0.1, 0.3, 0.5, 0.7, 1]
+    train_score, test_score = validation_curve(LinearSVC(penalty='l2',C=param_range), X_train_LSVC, y_train_LSVC,
+                                               param_name='C',
+                                               param_range=param_range, cv=10, scoring='accuracy')
+    train_score = np.mean(train_score, axis=1)
+    test_score = np.mean(test_score, axis=1)
+    plt.plot(param_range, train_score, 'o-', color='r', label='training')
+    plt.plot(param_range, test_score, 'o-', color='g', label='testing')
+    plt.legend(loc='best')
+    plt.xlabel('C,l2')
+    plt.ylabel('accuracy')
+    plt.show()
     return (ss_LSVC)
 
 model_LSVC()

@@ -14,7 +14,8 @@ from sklearn.neural_network import MLPClassifier        # 神经网络模型中�
 from sklearn.svm import LinearSVC                       # SVM 模型中的 SVC 模型
 
 
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 from sklearn.model_selection import validation_curve
 
 
@@ -32,7 +33,8 @@ def pre_data():
     column_names.append("output")
 
     # read csv
-    rd_csv = pd.read_csv("data/data_csvs/data.csv", names=column_names)
+    data_path = "./new_data.csv"
+    rd_csv = pd.read_csv(data_path, names=column_names)
     np.isnan(rd_csv).any()
 
     # 输出 csv 文件的维度
@@ -53,7 +55,7 @@ def pre_data():
 
 
 
-path_models = "D:/untitled/LR"
+path_models = "./LR"
 
 
 # LR, logistic regression, 逻辑斯特回归分类（线性模型）
@@ -185,7 +187,8 @@ def model_LSVC():
 
 
 
-model_LSVC()
+# model_LSVC()
+model_LR()
 
 
 

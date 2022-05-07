@@ -8,12 +8,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from sklearn.linear_model import LogisticRegression     # 线性模型中的 Logistic 回归模型
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 from sklearn.model_selection import validation_curve
 
 import numpy as np
 import matplotlib.pylab as plt
 from sklearn.model_selection import validation_curve
+# data_path = "C:/Users/86184/Desktop/520 FINAL PROJECT/new_data.csv"
+data_path = "./new_data.csv"
 
 #从csv读取数据与数据的预处理
 def pre_data():
@@ -27,7 +30,7 @@ def pre_data():
     # print(column_name)
 
     #读取csv
-    rd_csv = pd.read_csv("D:/vscode/workspace/learning/new_data.csv", names=column_name)
+    rd_csv = pd.read_csv(data_path, names=column_name)
     np.isnan(rd_csv).any()
 
     #划分训练集与测试集
@@ -43,11 +46,13 @@ def pre_data():
     return X_train,X_test,y_train,y_test
 
 
-path_models = "D:/vscode/workspace/learning/LR"
+# path_models = "D:/vscode/workspace/learning/LR"
+# path_models = "C:/Users/86184/Desktop/520 FINAL PROJECT/LR"
+path_models = "./LR"
 #LR,Logistic regression,逻辑斯蒂回归分类（线性模型）
 def model_LR():
     #获取数据
-    X_train_LR,X_test_LR,y_train_LR,y_test_LR = pre_data()
+    X_train_LR,X_test_LR,  y_train_LR,y_test_LR = pre_data()
 
     #数据预加工
     ss_LR = StandardScaler()
@@ -69,19 +74,19 @@ def model_LR():
     score_LR = LR.score(X_test_LR, y_test_LR)
     print("The accurary of LR:", score_LR)
 
-    ###########
-    # param_range = [0.1, 0.3, 0.5, 0.7, 1]
-    # train_score, test_score = validation_curve(LogisticRegression(penalty='l2',C=param_range), X_train_LR, y_train_LR,
-    #                                            param_name='C',
-    #                                            param_range=param_range, cv=10, scoring='accuracy')
-    # train_score = np.mean(train_score, axis=1)
-    # test_score = np.mean(test_score, axis=1)
-    # plt.plot(param_range, train_score, 'o-', color='r', label='training')
-    # plt.plot(param_range, test_score, 'o-', color='g', label='testing')
-    # plt.legend(loc='best')
-    # plt.xlabel('C')
-    # plt.ylabel('accuracy')
-    # plt.show()
+    ##########
+    param_range = [0.1, 0.3, 0.5, 0.7, 1]
+    train_score, test_score = validation_curve(LogisticRegression(penalty='l2',C=param_range), X_train_LR, y_train_LR,
+                                               param_name='C',
+                                               param_range=param_range, cv=10, scoring='accuracy')
+    train_score = np.mean(train_score, axis=1)
+    test_score = np.mean(test_score, axis=1)
+    plt.plot(param_range, train_score, 'o-', color='r', label='training')
+    plt.plot(param_range, test_score, 'o-', color='g', label='testing')
+    plt.legend(loc='best')
+    plt.xlabel('C')
+    plt.ylabel('accuracy')
+    plt.show()
     return (ss_LR)
 
 model_LR()
